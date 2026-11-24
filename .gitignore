@@ -13,3 +13,9 @@ test-results/
 tests/fixtures/private/
 tests/fixtures/third-party/saves/
 *.dsv
+
+# Terraform and Vercel CLI working files
+.terraform/
+*.tfstate
+*.tfstate.*
+.vercel/

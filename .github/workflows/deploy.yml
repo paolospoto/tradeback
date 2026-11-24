@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  TERRAFORM_VERSION: 1.17.2
+  VERCEL_CLI: vercel@66.6.0
+
+jobs:
+  deploy:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+    env:
+      TF_CLOUD_ORGANIZATION: ${{ vars.HCP_ORGANIZATION }}
+      TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - name: Read the Vercel project from the Terraform state
+        run: |
+          terraform -chdir=infra init -input=false
+          if ! project_id=$(terraform -chdir=infra output -raw project_id); then
+            echo "::error::No project_id in the Terraform state: the Infra workflow has not applied yet."
+            exit 1
+          fi
+          echo "VERCEL_PROJECT_ID=$project_id" >> "$GITHUB_ENV"
+      - run: npx --yes "$VERCEL_CLI" link --yes --project "$VERCEL_PROJECT_ID" --token "$VERCEL_TOKEN"
+      - run: npx --yes "$VERCEL_CLI" pull --yes --environment=production --token "$VERCEL_TOKEN"
+      - run: npx --yes "$VERCEL_CLI" build --prod --token "$VERCEL_TOKEN"
+      - id: deploy
+        run: echo "url=$(npx --yes "$VERCEL_CLI" deploy --prebuilt --prod --token "$VERCEL_TOKEN")" >> "$GITHUB_OUTPUT"

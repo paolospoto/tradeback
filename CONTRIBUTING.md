@@ -31,6 +31,7 @@ tests/unit/           Vitest
 tests/e2e/            Playwright
 tests/fixtures/       synthetic saves; third-party/ and private/ hold real saves and are gitignored
 docs/formats/         save format notes with sources, one file per generation
+infra/                Terraform for the Vercel project (state in HCP Terraform)
 ```
 
 ## Commands
@@ -78,9 +79,37 @@ code and in `docs/formats/`. No code is copied from PKHeX, which is GPLv3.
 Hooks: `pre-commit` runs Prettier and ESLint on staged files plus gitleaks, `pre-push` runs lint,
 typecheck and unit tests. Do not bypass them.
 
+## Deployment
+
+The site runs on Vercel. The project has no Git integration: Terraform in `infra/` creates and
+configures it, and the Vercel CLI deploys it from GitHub Actions.
+
+- `.github/workflows/infra.yml`: on pull requests that touch `infra/`, `terraform fmt` and
+  `validate` (no credentials). On push to `main`, `plan` and `apply`.
+- `.github/workflows/deploy.yml`: on every published release, reads the project ID from the
+  Terraform state, then runs `vercel pull`, `vercel build --prod` and `vercel deploy --prebuilt --prod`.
+
+The Terraform state lives in the HCP Terraform workspace `tradeback-production`, in local execution
+mode: HCP stores and locks the state, the runs happen in GitHub Actions.
+
+Both workflows use the `production` environment, which only `main` and `v*` tags can use. Its
+secrets (`TF_API_TOKEN`, `VERCEL_TOKEN`) are never available to pull requests, so contributors need
+no access to Vercel or HCP, and pull requests from forks only get `fmt` and `validate`. Changes to
+`infra/` and `.github/workflows/` need the code owner's review.
+
+First-time setup, done once by the owner:
+
+1. Create an HCP Terraform API token and a Vercel token.
+2. Run `scripts/setup-deploy.sh`. It asks for the HCP organization and the two tokens, creates the
+   workspace and the `production` environment, and stores the secrets.
+3. Merge a change to `infra/` into `main`: the Infra workflow creates the Vercel project.
+
+Run the script again to rotate a token.
+
 ## Releasing
 
 1. Move the `Unreleased` entries of `CHANGELOG.md` under a new version and update `version` in
    `package.json`, in a pull request.
 2. After merging, tag `main`: `git tag -a vX.Y.Z -m "vX.Y.Z"` and push the tag.
-3. Create a GitHub release from the tag with the changelog entry as notes.
+3. Create a GitHub release from the tag with the changelog entry as notes. Publishing it deploys
+   the tag to production.

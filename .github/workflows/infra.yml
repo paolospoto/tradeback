@@ -1,0 +1,54 @@
+name: Infra
+
+on:
+  pull_request:
+    paths: ["infra/**", ".github/workflows/infra.yml"]
+  push:
+    branches: [main]
+    paths: ["infra/**", ".github/workflows/infra.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: infra
+  cancel-in-progress: false
+
+env:
+  TERRAFORM_VERSION: 1.17.2
+  TF_IN_AUTOMATION: "true"
+
+jobs:
+  validate:
+    name: Terraform fmt and validate
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - run: terraform -chdir=infra fmt -check -recursive
+      - run: terraform -chdir=infra init -backend=false -input=false
+      - run: terraform -chdir=infra validate
+
+  apply:
+    name: Terraform apply
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    # Secrets live in this environment, which only main and v* tags can use.
+    environment: production
+    env:
+      TF_CLOUD_ORGANIZATION: ${{ vars.HCP_ORGANIZATION }}
+      TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+      VERCEL_API_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - run: terraform -chdir=infra init -input=false
+      - run: terraform -chdir=infra plan -input=false -out=tfplan
+      - run: terraform -chdir=infra apply -input=false tfplan
