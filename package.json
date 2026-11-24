@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "tsx scripts/fetch-species.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -19,7 +20,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "make-fixtures": "tsx scripts/make-fixtures.ts",
-    "fetch-test-saves": "tsx scripts/fetch-test-saves.ts"
+    "fetch-test-saves": "tsx scripts/fetch-test-saves.ts",
+    "fetch-species": "tsx scripts/fetch-species.ts"
   },
   "dependencies": {
     "lint-staged": "17.6.2",

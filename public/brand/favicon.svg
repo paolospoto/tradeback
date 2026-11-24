@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <title>tradeback</title>
+  <rect width="32" height="32" rx="7" fill="#1B1226"/>
+  <path fill="#E8384F" d="M6 9H20V5.5L27 11L20 16.5V13H6Z"/>
+  <path fill="#F4EEFF" d="M26 19H12V15.5L5 21L12 26.5V23H26Z"/>
+</svg>

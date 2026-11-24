@@ -1,3 +1,5 @@
 package-lock.json
 tests/fixtures/
 public/brand/
+lib/data/species-display.json
+AGENTS.md

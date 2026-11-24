@@ -1,0 +1,346 @@
+.helpButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-surface-raised) 60%, transparent);
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 150ms var(--ease),
+    background-color 150ms var(--ease),
+    color 150ms var(--ease),
+    transform 160ms var(--ease-out);
+}
+
+.helpGlyph {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+  color: var(--color-primary-hover);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.helpButton:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+}
+
+.helpButton:active {
+  transform: scale(0.97);
+}
+
+/* Narrow screens: the glyph alone, still a 44px target. */
+@media (max-width: 479px) {
+  .helpButton {
+    width: 44px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .helpLabel {
+    display: none;
+  }
+}
+
+.dialog {
+  width: min(440px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-overlay);
+}
+
+.dialog[open] {
+  animation: rise 200ms var(--ease);
+}
+
+.dialog::backdrop {
+  background: color-mix(in srgb, var(--color-bg) 80%, transparent);
+}
+
+.body {
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+}
+
+.art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 150px;
+  margin-bottom: 8px;
+  border-radius: var(--radius);
+  background: var(--color-surface-raised);
+}
+
+.art img {
+  width: 96px;
+  height: 96px;
+}
+
+/* Last step echoes the black evolution stage. */
+.artDark {
+  background:
+    radial-gradient(
+      50% 60% at 50% 50%,
+      color-mix(in srgb, var(--color-brand-red) 40%, transparent),
+      transparent 70%
+    ),
+    var(--color-bg);
+  overflow: hidden;
+}
+
+.evo {
+  position: relative;
+  display: block;
+  width: 120px;
+  height: 120px;
+}
+
+.art .evoMon {
+  position: absolute;
+  inset: 0;
+  width: 120px;
+  height: 120px;
+  opacity: 0;
+}
+
+.evoFrom {
+  filter: brightness(0) invert(1)
+    drop-shadow(0 0 10px color-mix(in srgb, var(--color-white) 90%, transparent));
+  animation: evoFrom 3.2s linear infinite;
+}
+
+.evoToSil {
+  filter: brightness(0) invert(1)
+    drop-shadow(0 0 10px color-mix(in srgb, var(--color-white) 90%, transparent));
+  animation: evoToSil 3.2s linear infinite;
+}
+
+/* Ends on Gengar in colour, which is also the still frame with reduced motion. */
+.evoTo {
+  animation: evoTo 3.2s linear infinite forwards;
+}
+
+.evoFlash {
+  position: absolute;
+  inset: -60px -200px;
+  background: var(--color-white);
+  opacity: 0;
+  pointer-events: none;
+  animation: evoFlash 3.2s linear infinite;
+}
+
+@keyframes evoFrom {
+  0%,
+  10%,
+  19%,
+  27%,
+  34%,
+  40%,
+  45%,
+  49%,
+  52.5% {
+    opacity: 1;
+  }
+  6%,
+  15%,
+  23.5%,
+  31%,
+  37.5%,
+  43%,
+  47.5%,
+  51%,
+  54%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes evoToSil {
+  0%,
+  10%,
+  19%,
+  27%,
+  34%,
+  40%,
+  45%,
+  49%,
+  52.5%,
+  62%,
+  100% {
+    opacity: 0;
+  }
+  6%,
+  15%,
+  23.5%,
+  31%,
+  37.5%,
+  43%,
+  47.5%,
+  51%,
+  54%,
+  58% {
+    opacity: 1;
+  }
+}
+
+@keyframes evoTo {
+  0%,
+  60% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  66%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes evoFlash {
+  0%,
+  55% {
+    opacity: 0;
+  }
+  59% {
+    opacity: 1;
+  }
+  72%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.save {
+  padding: 8px 12px;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.tile img {
+  width: 72px;
+  height: 72px;
+}
+
+.arrow {
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+/* Same check mark as the selected tiles. */
+.check {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+
+.check::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  width: 5px;
+  height: 10px;
+  border-right: 2px solid var(--color-on-primary);
+  border-bottom: 2px solid var(--color-on-primary);
+  transform: rotate(45deg);
+}
+
+.counter {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: 22px;
+}
+
+.text {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  min-height: 4.8em;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 4px 0;
+}
+
+.dot,
+.dotOn {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+}
+
+.dotOn {
+  width: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
