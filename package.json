@@ -18,7 +18,8 @@
     "prepare": "husky",
     "test": "vitest run",
     "test:watch": "vitest",
-    "make-fixtures": "tsx scripts/make-fixtures.ts"
+    "make-fixtures": "tsx scripts/make-fixtures.ts",
+    "fetch-test-saves": "tsx scripts/fetch-test-saves.ts"
   },
   "dependencies": {
     "lint-staged": "17.6.2",
