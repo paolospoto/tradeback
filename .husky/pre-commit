@@ -1,0 +1,6 @@
+npx --no -- lint-staged
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks git --pre-commit --staged --redact --no-banner
+else
+  echo "gitleaks not found: secret scan skipped locally (CI runs it)" >&2
+fi
