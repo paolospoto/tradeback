@@ -2,7 +2,7 @@
 
 ## Project
 
-Tradeback is a static Next.js (App Router) web app in TypeScript that applies trade evolutions to Pokémon save files of generations I to V, entirely in the browser. `app/page.tsx` renders the single page; `components/editor/EditorIsland.tsx` is the client island that loads, edits and offers the save for download; `lib/save/index.ts` detects the game and dispatches to one module per generation in `lib/save/gen1`…`gen5`. Format notes with sources are in `docs/formats/`. Next.js notes for agents are in `AGENTS.md`.
+Tradeback is a static Next.js (App Router) web app in TypeScript that applies trade evolutions to Pokémon save files of generations I to V, entirely in the browser. `app/page.tsx` renders the single page; `components/editor/EditorIsland.tsx` is the client island that loads, edits and offers the save for download; `lib/save/index.ts` detects the game and dispatches to one module per generation in `lib/save/gen1`…`gen5`. Format notes with sources are in `docs/formats/`. `infra/` holds the Terraform for the Vercel project; releases deploy through `.github/workflows/deploy.yml`. Next.js notes for agents are in `AGENTS.md`.
 
 ## Commands
 
@@ -11,6 +11,7 @@ Tradeback is a static Next.js (App Router) web app in TypeScript that applies tr
 - Typecheck: `npm run typecheck`
 - Test: `npm test` (unit), `npm run build && npm run test:e2e` (end to end); `npm run fetch-test-saves` downloads the real saves some unit tests use
 - Run: `npm run dev`
+- Infra: `terraform -chdir=infra fmt -recursive`, `terraform -chdir=infra init -backend=false && terraform -chdir=infra validate`; apply and deploy only run in GitHub Actions (see CONTRIBUTING.md, Deployment)
 
 ## Language
 
