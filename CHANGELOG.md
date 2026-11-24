@@ -6,6 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-11-24
+
+### Added
+
+- The site is online on Vercel, deployed from each release.
+
 ## [1.0.0] - 2026-11-24
 
 ### Added
@@ -20,5 +26,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - Raw `.sav` and `.dsv` files, DeSmuME footers and emulator clock bytes.
 - Step-by-step help for exporting and importing saves with Delta.
 
-[Unreleased]: https://github.com/paolospoto/tradeback/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/paolospoto/tradeback/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/paolospoto/tradeback/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/paolospoto/tradeback/releases/tag/v1.0.0
