@@ -1,0 +1,34 @@
+/* Tradeback dark theme tokens */
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --color-bg: #120C1A;
+  --color-surface: #1B1226;
+  --color-surface-raised: #251A33;
+  --color-border: #3A2C4D;
+  --color-border-strong: #85709F;
+
+  /* Text */
+  --color-text: #F4EEFF;
+  --color-text-secondary: #C9BEDD;
+  --color-text-muted: #9A8DB0;
+
+  /* Brand */
+  --color-primary: #A07CD8;
+  --color-primary-hover: #B494E3;
+  --color-on-primary: #120C1A;
+  --color-brand-red: #E8384F;
+  --color-red-text: #FF5A6E;
+  --color-white: #F4EEFF;
+
+  /* Status */
+  --color-success: #4CC38A;
+  --color-success-tint: #16261F;
+  --color-warning: #F2C14E;
+  --color-warning-tint: #2A2216;
+  --color-red-tint: #2E1420;
+
+  /* Focus */
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+}
