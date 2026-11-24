@@ -7,6 +7,7 @@ const config = [
   {
     ignores: [
       ".next/**",
+      ".vercel/**",
       "out/**",
       "node_modules/**",
       "next-env.d.ts",
