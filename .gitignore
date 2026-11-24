@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+coverage/
+playwright-report/
+test-results/
+.env*.local
+.DS_Store
+
+# Real saves: personal ones and third-party ones downloaded by `npm run fetch-test-saves`
+tests/fixtures/private/
+tests/fixtures/third-party/saves/
+*.dsv
