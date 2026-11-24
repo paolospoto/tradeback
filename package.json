@@ -22,7 +22,9 @@
     "make-fixtures": "tsx scripts/make-fixtures.ts",
     "fetch-test-saves": "tsx scripts/fetch-test-saves.ts",
     "test:e2e": "playwright test --trace off",
-    "fetch-species": "tsx scripts/fetch-species.ts"
+    "fetch-species": "tsx scripts/fetch-species.ts",
+    "dump-save": "tsx scripts/dump-save.ts",
+    "diff-saves": "tsx scripts/diff-saves.ts"
   },
   "dependencies": {
     "lint-staged": "17.6.2",
