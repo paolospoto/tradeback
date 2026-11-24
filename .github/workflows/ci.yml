@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   pull_request:
+    # edited: recheck the title when it changes.
+    types: [opened, synchronize, reopened, edited]
 
 permissions:
   contents: read
