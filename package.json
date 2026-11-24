@@ -1,6 +1,6 @@
 {
   "name": "tradeback",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Evolve your Pokémon by trade, right in your browser.",
   "type": "module",
