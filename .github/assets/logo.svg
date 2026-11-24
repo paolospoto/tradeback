@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <title>tradeback</title>
+  <rect width="128" height="128" rx="28" fill="#1B1226"/>
+  <g transform="translate(9.5 24)">
+    <g transform="translate(-48 -80)">
+      <rect x="59" y="96" width="28" height="24" rx="2.5" fill="#F4EEFF"/>
+      <rect x="119.5" y="97" width="25" height="22" rx="2" fill="#F4EEFF" fill-opacity="0.18"/>
+      <path fill="#A07CD8" fill-rule="evenodd" d="M61 90H85A7 7 0 0 1 92 97V143A7 7 0 0 1 85 150H61A7 7 0 0 1 54 143V97A7 7 0 0 1 61 90Z M61.5 96H84.5A2.5 2.5 0 0 1 87 98.5V117.5A2.5 2.5 0 0 1 84.5 120H61.5A2.5 2.5 0 0 1 59 117.5V98.5A2.5 2.5 0 0 1 61.5 96Z M61.8 130a3.2 3.2 0 1 0 6.4 0a3.2 3.2 0 1 0 -6.4 0Z M77.8 138a3.2 3.2 0 1 0 6.4 0a3.2 3.2 0 1 0 -6.4 0Z"/>
+      <g fill="none" stroke="#A07CD8">
+        <rect x="114.5" y="91.5" width="35" height="57" rx="6" stroke-width="3"/>
+        <rect x="119.5" y="97" width="25" height="22" rx="2" stroke-width="2"/>
+        <circle cx="141" cy="130" r="2.8" stroke-width="2"/>
+        <circle cx="125" cy="138" r="2.8" stroke-width="2"/>
+      </g>
+      <path fill="#E8384F" d="M96 111.5H105V109L111 113L105 117V114.5H96Z"/>
+      <path fill="#F4EEFF" d="M110 124.5H101V122L95 126L101 130V127.5H110Z"/>
+    </g>
+  </g>
+</svg>
