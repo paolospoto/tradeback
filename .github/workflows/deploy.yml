@@ -44,8 +44,9 @@ jobs:
             echo "::error::No project_id in the Terraform state: the Infra workflow has not applied yet."
             exit 1
           fi
-          echo "VERCEL_PROJECT_ID=$project_id" >> "$GITHUB_ENV"
-      - run: npx --yes "$VERCEL_CLI" link --yes --project "$VERCEL_PROJECT_ID" --token "$VERCEL_TOKEN"
+          # Not VERCEL_PROJECT_ID: with it the CLI ignores the link and also wants VERCEL_ORG_ID.
+          echo "PROJECT_ID=$project_id" >> "$GITHUB_ENV"
+      - run: npx --yes "$VERCEL_CLI" link --yes --project "$PROJECT_ID" --token "$VERCEL_TOKEN"
       - run: npx --yes "$VERCEL_CLI" pull --yes --environment=production --token "$VERCEL_TOKEN"
       - run: npx --yes "$VERCEL_CLI" build --prod --token "$VERCEL_TOKEN"
       - id: deploy
